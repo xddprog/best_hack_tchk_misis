@@ -2,12 +2,12 @@ from uuid import uuid4
 
 from fastapi.security import HTTPAuthorizationCredentials
 
-from app.core.dto.auth import AuthUserModel
-from app.core.dto.user import UserModel
-from app.core.repositories.user_repository import UserRepository
-from app.infrastructure.database.models.user import User
-from app.infrastructure.errors.auth_errors import AccessDenied
-from app.infrastructure.errors.user_errors import UserAlreadyRegistered, UserNotFound
+from backend.core.dto.auth import AuthUserModel
+from backend.core.dto.user import UserModel
+from backend.core.repositories.user_repository import UserRepository
+from backend.infrastructure.database.models.user import User
+from backend.infrastructure.errors.auth_errors import AccessDenied
+from backend.infrastructure.errors.user_errors import UserAlreadyRegistered, UserNotFound
 
 
 class AuthService:

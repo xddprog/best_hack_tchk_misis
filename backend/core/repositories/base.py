@@ -6,14 +6,11 @@ from sqlalchemy import Result, select, update
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import MappedColumn
 
-from app.infrastructure.database.models.activity import Activity
-from app.infrastructure.database.models.building import Building
-from app.infrastructure.database.models.organization import Organization
-from app.infrastructure.database.models.user import User
+from backend.infrastructure.database.models.user import User
 
 
 
-ModelType = Type[User | Organization | Activity | Building]
+ModelType = Type[User]
 
 
 class BaseRepository(ABC):

@@ -1,5 +1,5 @@
 from sqlalchemy.orm import Mapped
-from app.infrastructure.database.models.base import Base
+from backend.infrastructure.database.models.base import Base
 
 
 class User(Base):
@@ -7,4 +7,3 @@ class User(Base):
 
     email: Mapped[str]
     password: Mapped[str]
-    token: Mapped[str]
