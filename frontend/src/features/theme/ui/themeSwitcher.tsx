@@ -15,14 +15,14 @@ const ThemeSwitcher = () => {
   return (
     <button
       aria-label="Change theme"
-      className="flex justify-center items-center p-2 bg-gradient-to-br from-[#FFB457] to-[#FF705B] rounded-full transition-transform duration-300 hover:scale-110"
+      className="flex justify-center items-center gap-2 p-2 rounded-full transition-all duration-300 hover:scale-110 "
       value={theme}
       onClick={handleChangeTheme}
     >
       <Avatar
         classNames={{
           base: "bg-transparent",
-          icon: "text-black/80 transition-transform duration-200 ease-in-out transform hover:scale-125",
+          icon: "text-black/80 dark:text-white/80 transition-transform duration-200 ease-in-out transform hover:scale-125",
         }}
         icon={themesIcon[theme as keyof typeof themesIcon]}
       />

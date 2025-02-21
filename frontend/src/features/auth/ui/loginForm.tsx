@@ -1,30 +1,12 @@
 import { Form } from "@heroui/form";
 import { Button } from "@heroui/button";
 import { Input } from "@heroui/input";
-import { ChangeEvent, FormEvent, useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 import { ERouteNames } from "@/shared/utils/pathVariables";
+import { useLogin } from "../hooks/useLogin";
 
 const LoginForm = () => {
-  const [loginValues, setLoginValues] = useState({
-    email: "",
-    password: "",
-  });
-
-  const handleChangeValues = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      setLoginValues((prev) => ({
-        ...prev,
-        [event.target.name]: event.target.value,
-      }));
-    },
-    []
-  );
-
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setLoginValues({ email: "", password: "" });
-  };
+  const { loginValues, onSubmit, handleChangeValues } = useLogin();
 
   return (
     <Form

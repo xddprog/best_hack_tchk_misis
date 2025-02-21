@@ -8,7 +8,7 @@ const RootPage = () => {
     <div className="h-screen w-screen p-3 relative flex flex-col justify-between">
       <Suspense
         fallback={
-          <div className="flex min-h-screen items-center justify-center">
+          <div className="flex h-full items-center justify-center">
             <Spinner />
           </div>
         }

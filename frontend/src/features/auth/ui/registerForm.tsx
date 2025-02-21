@@ -1,31 +1,12 @@
 import { Form } from "@heroui/form";
 import { Button } from "@heroui/button";
 import { Input } from "@heroui/input";
-import { ChangeEvent, FormEvent, useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 import { ERouteNames } from "@/shared/utils/pathVariables";
+import { useRegister } from "../hooks/useRegister";
 
 const RegisterForm = () => {
-  const [registerValues, setRegisterValues] = useState({
-    email: "",
-    username: "",
-    password: "",
-  });
-
-  const handleChangeValues = useCallback(
-    (event: ChangeEvent<HTMLInputElement>) => {
-      setRegisterValues((prev) => ({
-        ...prev,
-        [event.target.name]: event.target.value,
-      }));
-    },
-    []
-  );
-
-  const onSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setRegisterValues({ email: "", password: "", username: "" });
-  };
+  const { registerValues, onSubmit, handleChangeValues } = useRegister();
 
   return (
     <Form
