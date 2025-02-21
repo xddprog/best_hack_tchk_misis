@@ -5,3 +5,5 @@ asyncpg
 greenlet
 alembic
 uvicorn
+passlig
+pyjwt
