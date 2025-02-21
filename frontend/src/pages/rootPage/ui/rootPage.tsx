@@ -1,9 +1,12 @@
+import { useUser } from "@/features/auth/hooks/useUser";
 import ThemeSwitcher from "@/features/theme/ui/themeSwitcher";
 import { Spinner } from "@heroui/spinner";
 import { Suspense } from "react";
 import { Outlet } from "react-router-dom";
 
 const RootPage = () => {
+  const { data } = useUser();
+
   return (
     <div className="h-screen w-screen p-3 relative flex flex-col justify-between">
       <Suspense
@@ -16,7 +19,7 @@ const RootPage = () => {
         <div className="flex-1 overflow-auto">
           <ThemeSwitcher />
           <Outlet />
-          CRM APP |
+          CRM APP | {data.username}
         </div>
       </Suspense>
     </div>

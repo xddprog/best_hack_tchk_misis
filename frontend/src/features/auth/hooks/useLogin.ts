@@ -22,7 +22,7 @@ export const useLogin = () => {
       tokenService.setAccessToken(data.tokens.access_token);
       tokenService.setRefreshToken(data.tokens.refresh_token);
       navigate(ERouteNames.DASHBOARD_ROUTE, { replace: true });
-      toast.success("Успешный вход, Егор!", {
+      toast.success(`Успешный вход, ${data.user.username}!`, {
         position: "top-right",
         duration: 3000,
       });

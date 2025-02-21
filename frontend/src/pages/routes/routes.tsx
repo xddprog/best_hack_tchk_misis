@@ -1,4 +1,4 @@
-import { createBrowserRouter, Navigate } from "react-router-dom";
+import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 import RootPage from "../rootPage";
 import { ERouteNames } from "@/shared/utils/pathVariables";
 import { lazy } from "react";
@@ -14,17 +14,23 @@ const DashboardPage = lazy(() => import("@/pages/dashboardPage"));
 
 export const routes = createBrowserRouter([
   {
-    path: ERouteNames.DEFAULT_ROUTE,
-    element: <RootPage />,
+    errorElement: <ErrorPage />,
+    element: <Outlet />,
     children: [
       ...routesWithHoc(privatePage, [
         {
-          path: "",
-          element: <Navigate to={ERouteNames.DASHBOARD_ROUTE} />,
-        },
-        {
-          path: ERouteNames.DASHBOARD_ROUTE,
-          element: <DashboardPage />,
+          path: ERouteNames.DEFAULT_ROUTE,
+          element: <RootPage />,
+          children: [
+            {
+              path: "",
+              element: <Navigate to={ERouteNames.DASHBOARD_ROUTE} replace />,
+            },
+            {
+              path: ERouteNames.DASHBOARD_ROUTE,
+              element: <DashboardPage />,
+            },
+          ],
         },
       ]),
     ],

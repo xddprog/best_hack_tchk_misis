@@ -23,7 +23,7 @@ export const useRegister = () => {
       tokenService.setAccessToken(data.tokens.access_token);
       tokenService.setRefreshToken(data.tokens.refresh_token);
       navigate(ERouteNames.DASHBOARD_ROUTE, { replace: true });
-      toast.success("Успешная регистрация, Егор!", {
+      toast.success(`Успешная регистрация, ${data.user.username}!`, {
         position: "top-right",
         duration: 3000,
       });

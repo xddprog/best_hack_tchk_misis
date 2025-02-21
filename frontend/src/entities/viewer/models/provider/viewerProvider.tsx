@@ -45,6 +45,14 @@ export const ViewerProvider: FC<PropsWithChildren> = ({ children }) => {
   }, []);
 
   return (
-    <ViewerContext.Provider value={values}>{children}</ViewerContext.Provider>
+    <ViewerContext.Provider
+      value={{
+        ...viewer,
+        loginViewer: handleLoginViewer,
+        logoutViewer: handleLogoutViewer,
+      }}
+    >
+      {children}
+    </ViewerContext.Provider>
   );
 };
