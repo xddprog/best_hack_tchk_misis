@@ -3,6 +3,9 @@ import RootPage from "../rootPage";
 import { ERouteNames } from "@/shared/utils/pathVariables";
 import { lazy } from "react";
 import ErrorPage from "../errorPage";
+import { routesWithHoc } from "./routesWithHoc";
+import { privatePage } from "@/entities/viewer/libs/hoc/privatePage";
+import { publicPage } from "@/entities/viewer/libs/hoc/publicPage";
 
 const AuthPage = lazy(() => import("@/pages/authPage"));
 const LoginPage = lazy(() => import("@/pages/authPage/ui/loginPage"));
@@ -14,14 +17,16 @@ export const routes = createBrowserRouter([
     path: ERouteNames.DEFAULT_ROUTE,
     element: <RootPage />,
     children: [
-      {
-        path: "",
-        element: <Navigate to={ERouteNames.DASHBOARD_ROUTE} />,
-      },
-      {
-        path: ERouteNames.DASHBOARD_ROUTE,
-        element: <DashboardPage />,
-      },
+      ...routesWithHoc(privatePage, [
+        {
+          path: "",
+          element: <Navigate to={ERouteNames.DASHBOARD_ROUTE} />,
+        },
+        {
+          path: ERouteNames.DASHBOARD_ROUTE,
+          element: <DashboardPage />,
+        },
+      ]),
     ],
   },
   {
@@ -29,18 +34,20 @@ export const routes = createBrowserRouter([
     element: <AuthPage />,
     errorElement: <ErrorPage />,
     children: [
-      {
-        path: "",
-        element: <Navigate to={ERouteNames.LOGIN_ROUTE} />,
-      },
-      {
-        path: ERouteNames.LOGIN_ROUTE,
-        element: <LoginPage />,
-      },
-      {
-        path: ERouteNames.REGISTRATION_ROUTE,
-        element: <RegisterPage />,
-      },
+      ...routesWithHoc(publicPage, [
+        {
+          path: "",
+          element: <Navigate to={ERouteNames.LOGIN_ROUTE} />,
+        },
+        {
+          path: ERouteNames.LOGIN_ROUTE,
+          element: <LoginPage />,
+        },
+        {
+          path: ERouteNames.REGISTRATION_ROUTE,
+          element: <RegisterPage />,
+        },
+      ]),
     ],
   },
 ]);

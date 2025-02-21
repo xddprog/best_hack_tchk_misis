@@ -7,6 +7,7 @@ import axios, {
 } from "axios";
 import { RequestOptions } from "https";
 import tokenService from "@/entities/token/libs/tokenService";
+import { refreshToken } from "@/entities/auth/libs/authService";
 
 export class AxiosClient {
   private baseQueryV1Instance: AxiosInstance;
@@ -24,7 +25,7 @@ export class AxiosClient {
 
     if (withAuth) {
       this.addAuthInterceptor();
-      // this.addAuthResponseInterceptor();
+      this.addAuthResponseInterceptor();
     }
   }
 
@@ -66,19 +67,20 @@ export class AxiosClient {
           isRefreshing = true;
 
           try {
-            const { data } = await authService.refreshToken();
+            const data = await refreshToken();
 
-            if (!data.access_token) throw new Error("Invalid refresh response");
+            if (!data.tokens.access_token)
+              throw new Error("Invalid refresh response");
 
-            tokenService.setAccessToken(data.access_token);
+            tokenService.setAccessToken(data.tokens.access_token);
             isRefreshing = false;
 
             refreshSubscribers.forEach((callback) =>
-              callback(data.access_token)
+              callback(data.tokens.access_token)
             );
             refreshSubscribers = [];
 
-            originalRequest.headers.Authorization = `Bearer ${data.access_token}`;
+            originalRequest.headers.Authorization = `Bearer ${data.tokens.access_token}`;
 
             return this.baseQueryV1Instance(originalRequest);
           } catch (error) {

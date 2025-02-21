@@ -5,11 +5,24 @@ class TokenService {
     localStorage.removeItem(ETokenKeys.ACCESS);
   }
 
+  public deleteRefreshToken() {
+    localStorage.removeItem(ETokenKeys.REFRESH);
+  }
+
   public getAccessToken() {
     return localStorage.getItem(ETokenKeys.ACCESS);
   }
+
+  public getRefreshToken() {
+    return localStorage.getItem(ETokenKeys.REFRESH);
+  }
+
+  public setRefreshToken(value: string) {
+    localStorage.setItem(ETokenKeys.REFRESH, value);
+  }
+
   public setAccessToken(value: string) {
-    return localStorage.setItem(ETokenKeys.ACCESS, value);
+    localStorage.setItem(ETokenKeys.ACCESS, value);
   }
 }
 export default new TokenService();

@@ -1,5 +1,6 @@
 import { register } from "@/entities/auth/libs/authService";
-import { IRegisterRequest } from "@/entities/auth/types/types";
+import { IAuthResponse, IRegisterRequest } from "@/entities/auth/types/types";
+import tokenService from "@/entities/token/libs/tokenService";
 import { ERouteNames } from "@/shared/utils/pathVariables";
 import { useMutation } from "@tanstack/react-query";
 import { ChangeEvent, FormEvent, useCallback, useState } from "react";
@@ -18,7 +19,9 @@ export const useRegister = () => {
   const { mutate } = useMutation({
     mutationKey: ["register"],
     mutationFn: (requestData: IRegisterRequest) => register(requestData),
-    onSuccess: () => {
+    onSuccess: (data: IAuthResponse) => {
+      tokenService.setAccessToken(data.tokens.access_token);
+      tokenService.setRefreshToken(data.tokens.refresh_token);
       navigate(ERouteNames.DASHBOARD_ROUTE, { replace: true });
       toast.success("Успешная регистрация, Егор!", {
         position: "top-right",
