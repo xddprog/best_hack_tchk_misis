@@ -25,8 +25,8 @@ async def get_auth_service(session=Depends(get_db_session)) -> services.AuthServ
     )
 
 
-async def check_token(
+async def get_current_user_deps(
     auth_service: Annotated[services.AuthService, Depends(get_auth_service)],
-    token: Annotated[HTTPBearer, Depends(bearer)]
+    token: Annotated[HTTPBearer, Depends(bearer)],
 ) -> None:
-    return await auth_service.check_token(token)
+    return await auth_service.verify_token(token)

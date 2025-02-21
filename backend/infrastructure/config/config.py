@@ -7,6 +7,14 @@ env = Env()
 env.read_env()
 
 
+class JwtConfig(BaseModel):
+    JWT_SECRET: str
+    JWT_ALGORITHM: str
+    JWT_ACCESS_TOKEN_TIME: int
+    JWT_REFRESH_TOKEN_TIME: int
+
+
+
 class DatabaseConfig(BaseModel):
     DB_NAME: str
     DB_USER: str
@@ -22,4 +30,7 @@ class DatabaseConfig(BaseModel):
 
 DB_CONFIG = DatabaseConfig(
     **{field: env.str(field.upper()) for field in DatabaseConfig.model_fields}
+)
+JWT_CONFIG = JwtConfig(
+    **{field: env.str(field.upper()) for field in JwtConfig.model_fields}
 )
