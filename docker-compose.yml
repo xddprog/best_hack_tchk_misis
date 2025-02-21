@@ -1,4 +1,4 @@
-version: '3.7'  # Обновил версию с 3.0 на 3.7
+version: '3.7'
 
 services:
   db:
@@ -11,10 +11,23 @@ services:
     networks:
       - app-network
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U postgres" ]  # Исправил имя пользователя
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]
       interval: 5s
       timeout: 10s
       retries: 5
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx-proxy
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - app
+    networks:
+      - app-network
+    ports:
+      - "80:80"
+
       
   app:
     build:
@@ -28,7 +41,7 @@ services:
       - DB_PASS=postgres
     depends_on:
       db:
-        condition: service_healthy  # Это теперь работает
+        condition: service_healthy
     networks:
       - app-network
     ports:
