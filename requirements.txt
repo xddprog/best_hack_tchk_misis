@@ -5,5 +5,5 @@ asyncpg
 greenlet
 alembic
 uvicorn
-passlig
+passlib
 pyjwt
