@@ -47,12 +47,11 @@ class AuthService:
         )
     
     async def refresh_token(self, token: str) -> AuthResponseModel:
-        email = await self.verify_token(token, is_refresh=True)
-        user = await self.get_user_by_email(email)
+        user = await self.verify_token(token, is_refresh=True)
         return AuthResponseModel(
             user=BaseUserModel.model_validate(user, from_attributes=True),
             tokens=TokensModel(
-                access_token=await self.create_access_token(email),
+                access_token=await self.create_access_token(user.email),
                 refresh_token=token
             )   
         )
