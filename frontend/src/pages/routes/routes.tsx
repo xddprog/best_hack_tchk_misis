@@ -19,6 +19,10 @@ export const routes = createBrowserRouter([
     children: [
       ...routesWithHoc(privatePage, [
         {
+          path: "",
+          element: <Navigate to={ERouteNames.DEFAULT_ROUTE} replace />,
+        },
+        {
           path: ERouteNames.DEFAULT_ROUTE,
           element: <RootPage />,
           children: [
