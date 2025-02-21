@@ -7,3 +7,4 @@ alembic
 uvicorn
 passlib
 pyjwt
+pydantic[email]
