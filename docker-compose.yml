@@ -1,4 +1,4 @@
-version: '3.0'
+version: '3.7'  # Обновил версию с 3.0 на 3.7
 
 services:
   db:
@@ -11,7 +11,7 @@ services:
     networks:
       - app-network
     healthcheck:
-      test: [ "CMD-SHELL", "pg_isready -U example" ]
+      test: [ "CMD-SHELL", "pg_isready -U postgres" ]  # Исправил имя пользователя
       interval: 5s
       timeout: 10s
       retries: 5
@@ -27,8 +27,8 @@ services:
       - DB_USER=postgres
       - DB_PASS=postgres
     depends_on:
-      db: 
-        condition: service_healthy
+      db:
+        condition: service_healthy  # Это теперь работает
     networks:
       - app-network
     ports:
